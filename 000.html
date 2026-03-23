@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>点击小游戏</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            margin: 10px;
+            cursor: pointer;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+        button:disabled {
+            background-color: gray;
+            cursor: not-allowed;
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>点击按钮吧！</h1>
+    <p>你需要点击四次按钮，最终会显示一个神秘的信息。</p>
+
+    <button id="button1" onclick="nextStep(1)">点击第一次</button>
+    <button id="button2" class="hidden" onclick="nextStep(2)">点击第二次</button>
+    <button id="button3" class="hidden" onclick="nextStep(3)">点击第三次</button>
+    <button id="button4" class="hidden" onclick="nextStep(4)">点击第四次</button>
+
+    <p id="result" class="hidden">你是沙比</p>
+
+    <script>
+        function nextStep(step) {
+            // 隐藏当前按钮
+            document.getElementById('button' + step).classList.add('hidden');
+
+            // 显示下一个按钮
+            if (step < 4) {
+                document.getElementById('button' + (step + 1)).classList.remove('hidden');
+            } else {
+                // 最后显示结果
+                document.getElementById('result').classList.remove('hidden');
+            }
+        }
+    </script>
+
+</body>
+</html>
