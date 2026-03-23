@@ -1,24 +1,18 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="zh">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>点击挑战</title>
+    <title>点击小游戏</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             text-align: center;
             margin-top: 50px;
-            background-color: #f0f0f5;
         }
-
-        h1 {
-            color: #333;
-        }
-
         button {
-            font-size: 18px;
             padding: 10px 20px;
+            font-size: 16px;
             margin: 10px;
             cursor: pointer;
             background-color: #4CAF50;
@@ -26,14 +20,10 @@
             border: none;
             border-radius: 5px;
         }
-
-        .message {
-            font-size: 24px;
-            font-weight: bold;
-            color: #333;
-            margin-top: 20px;
+        button:disabled {
+            background-color: gray;
+            cursor: not-allowed;
         }
-
         .hidden {
             display: none;
         }
@@ -41,49 +31,27 @@
 </head>
 <body>
 
-    <h1>点击挑战</h1>
-    <div class="message">
-        <p id="msg1">准备好了吗？</p>
-        <button id="startButton" onclick="start()">好了</button>
-    </div>
+    <h1>点击按钮吧！</h1>
+    <p>你需要点击四次按钮，最终会显示一个神秘的信息。</p>
 
-    <div id="challenge" class="hidden">
-        <p id="msg2">点击第1次</p>
-        <button onclick="nextStep(1)">点我 (1)</button>
-        <button id="btn2" class="hidden" onclick="nextStep(2)">点我 (2)</button>
-        <button id="btn3" class="hidden" onclick="nextStep(3)">点我 (3)</button>
-        <button id="btn4" class="hidden" onclick="nextStep(4)">点我 (4)</button>
-    </div>
+    <button id="button1" onclick="nextStep(1)">点击第一次</button>
+    <button id="button2" class="hidden" onclick="nextStep(2)">点击第二次</button>
+    <button id="button3" class="hidden" onclick="nextStep(3)">点击第三次</button>
+    <button id="button4" class="hidden" onclick="nextStep(4)">点击第四次</button>
 
-    <p id="finalMessage" class="hidden">你是沙比</p>
+    <p id="result" class="hidden">你是沙比</p>
 
     <script>
-        let clickCount = 0;
-
-        // 开始游戏，显示挑战区
-        function start() {
-            document.getElementById('msg1').style.display = 'none';  // 隐藏准备好了吗？
-            document.getElementById('startButton').style.display = 'none'; // 隐藏“好了”按钮
-            document.getElementById('challenge').classList.remove('hidden'); // 显示挑战区
-        }
-
-        // 点击每个按钮后的流程
         function nextStep(step) {
-            clickCount++;
-            document.getElementById('msg' + clickCount).style.display = 'none'; // 隐藏上一个消息
+            // 隐藏当前按钮
+            document.getElementById('button' + step).classList.add('hidden');
 
-            if (clickCount === 1) {
-                document.getElementById('btn2').classList.remove('hidden'); // 显示第二个按钮
-                document.getElementById('msg2').textContent = '点击第2次';
-            } else if (clickCount === 2) {
-                document.getElementById('btn3').classList.remove('hidden'); // 显示第三个按钮
-                document.getElementById('msg2').textContent = '点击第3次';
-            } else if (clickCount === 3) {
-                document.getElementById('btn4').classList.remove('hidden'); // 显示第四个按钮
-                document.getElementById('msg2').textContent = '点击第4次';
-            } else if (clickCount === 4) {
-                document.getElementById('finalMessage').classList.remove('hidden'); // 显示最终消息
-                document.getElementById('btn4').classList.add('hidden'); // 隐藏最后一个按钮
+            // 显示下一个按钮
+            if (step < 4) {
+                document.getElementById('button' + (step + 1)).classList.remove('hidden');
+            } else {
+                // 最后显示结果
+                document.getElementById('result').classList.remove('hidden');
             }
         }
     </script>
